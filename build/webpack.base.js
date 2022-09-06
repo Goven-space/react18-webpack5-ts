@@ -58,27 +58,46 @@ module.exports = {
         test: /.(ts|tsx)$/,
         use: {
           loader: 'babel-loader',
-          options: {
-            // 执行顺序由右往左,所以先处理ts,再处理jsx,最后再试一下babel转换为低版本语法
-            presets: [
-              [
-                "@babel/preset-env",
-                {
-                  // 设置兼容目标浏览器版本,这里可以不写,babel-loader会自动寻找上面配置好的文件.browserslistrc
-                  // "targets": {
-                  //  "chrome": 35,
-                  //  "ie": 9
-                  // },
-                  "useBuiltIns": "usage", // 根据配置的浏览器兼容,以及代码中使用到的api进行引入polyfill按需添加
-                  "corejs": 3, // 配置使用core-js低版本
-                }
-              ],
-              '@babel/preset-react',
-              '@babel/preset-typescript'
-            ]
-          }
+          // 配置信息可写在babel.config.js文件中
+          // options: {
+          //   // 执行顺序由右往左,所以先处理ts,再处理jsx,最后再试一下babel转换为低版本语法
+          //   presets: [
+          //     [
+          //       "@babel/preset-env",
+          //       {
+          //         // 设置兼容目标浏览器版本,这里可以不写,babel-loader会自动寻找上面配置好的文件.browserslistrc
+          //         // "targets": {
+          //         //  "chrome": 35,
+          //         //  "ie": 9
+          //         // },
+          //         "useBuiltIns": "usage", // 根据配置的浏览器兼容,以及代码中使用到的api进行引入polyfill按需添加
+          //         "corejs": 3, // 配置使用core-js低版本
+          //       }
+          //     ],
+          //     '@babel/preset-react',
+          //     '@babel/preset-typescript'
+          //   ]
+          // }
         }
-      }
+      },
+
+      {
+        // 处理图片文件
+        // webpack5 自带asset-module
+        // webpack4 使用file-loader  url-loader
+        // images.d.ts 图片声明文件
+        test: /.(png|jpg|jpeg|gif|svg)$/, // 匹配图片文件
+        type: "asset", // type选择asset
+        parser: {
+          dataUrlCondition: {
+            maxSize: 10 * 1024, // 小于10kb转base64位
+          }
+        },
+        generator: {
+          filename: 'static/images/[name][ext]', // 文件输出目录和命名
+        },
+      },
+
 
     ]
   },
