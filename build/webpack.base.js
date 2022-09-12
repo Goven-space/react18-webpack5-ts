@@ -5,6 +5,13 @@ const webpack = require('webpack')
 module.exports = {
   entry: path.join(__dirname, '../src/index.tsx'),//入口问文件
 
+
+  resolve: {
+    alias: {//设置路径别名
+      '@': path.join(__dirname, '../src')
+    }
+  },
+
   output: {
     filename: 'static/js/[name].js', // 每个输出js的名称
     path: path.join(__dirname, '../dist'), // 打包结果输出路径
@@ -12,26 +19,36 @@ module.exports = {
     publicPath: '/' // 打包后文件的公共前缀路径
   },
 
+  cache: {
+    type: 'filesystem', // 使用文件缓存,持久化缓存
+  },
+
   module: {
     rules: [
-      {
-        test: /.(ts|tsx)$/, // 匹配.ts, tsx文件
-        use: {
-          loader: 'babel-loader',
-          options: {
-            // 预设执行顺序由右往左,所以先处理ts,再处理jsx
-            presets: [
-              '@babel/preset-react',
-              '@babel/preset-typescript'
-            ]
-          }
-        }
-      },
-      {
-        test: /.(css|less)$/, //匹配 css和less 文件
-        use: [
-          'style-loader',
-          'css-loader',
+      // {
+      //   test: /.(ts|tsx)$/, // 匹配.ts, tsx文件
+      //   use: [{
+      //     loader: 'thread-loader', //进程启动大概为600ms，只适合大型项目
+      //     options: {
+      //       workders: 2 //进程数量2个
+      //     }
+      //   },
+      //   {
+      //     loader:  'babel-loader',
+      //     options: {
+      //       // 预设执行顺序由右往左,所以先处理ts,再处理jsx
+      //       presets: [
+      //         '@babel/preset-react',
+      //         '@babel/preset-typescript'
+      //       ]
+      //     }
+      //   }]
+      // },
+      // {
+      //   test: /.(css|less)$/, //匹配 css和less 文件
+      //   use: [
+      //     'style-loader',
+      //     'css-loader',
           // {
           //postcss-loader：处理css时自动加前缀
           // autoprefixer：决定添加哪些浏览器前缀到css中
@@ -44,20 +61,42 @@ module.exports = {
           //     }
           //   }
           // },
+      //     'postcss-loader',
+      //     'less-loader'
+      //   ]
+      // },
+
+      {
+        test: /.css$/, //匹配所有的 css 文件
+        include: [path.resolve(__dirname, '../src')],
+        use: [
+          'style-loader',
+          'css-loader',
+          'postcss-loader'
+        ]
+      },
+      {
+        test: /.less$/, //匹配所有的 less 文件
+        include: [path.resolve(__dirname, '../src')],
+        use: [
+          'style-loader',
+          'css-loader',
           'postcss-loader',
           'less-loader'
         ]
       },
+
 
       {
         // babel-loader: 使用 babel 加载最新js代码并将其转换为 ES5
         // @babel/corer: babel 编译的核心包
         // @babel/preset-env: babel 编译的预设,可以转换目前最新的js标准语法
         // core-js: 使用低版本js语法模拟高版本的库, 也就是垫片
-
+        // include: [path.resolve(__dirname, '../src')],  //只对项目src文件的ts,tsx进行loader解析
+        // exclude:不解该选项配置的模块,优先级更高
         test: /.(ts|tsx)$/,
         use: {
-          loader: 'babel-loader',
+          loader:  'babel-loader'
           // 配置信息可写在babel.config.js文件中
           // options: {
           //   // 执行顺序由右往左,所以先处理ts,再处理jsx,最后再试一下babel转换为低版本语法
