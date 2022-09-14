@@ -9,10 +9,12 @@ const globAll = require('glob-all')
 const PurgeCSSPlugin = require('purgecss-webpack-plugin')
 
 module.exports = merge(baseConfig, {
-    mode: 'production', // 生产模式,会开启tree-shaking和压缩代码,以及其他优化
+  mode: 'production', // 生产模式,会开启tree-shaking和压缩代码,以及其他优化
+  
     safelist: {
       standard: [/^ant-/], // 过滤以ant-开头的类名，哪怕没用到也不删除
-    }
+  },
+    
     plugins: [
         // 复制文件插件
         // public文件一般为静态资源可直接绝对逻辑狗映入不需要解释直接放进构件文件中
