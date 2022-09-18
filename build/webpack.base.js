@@ -7,14 +7,17 @@ const isDev = process.env.NODE_ENV === 'development' // 是否是开发模式
 
 module.exports = {
   entry: path.join(__dirname, '../src/index.tsx'),//入口问文件
-
-
   resolve: {
+    //是webpack的resolve解析配置下的选项，在引入模块时不带文件后缀时，会来该配置数组里面依次添加后缀查找文件
+    extensions: ['.js', '.jsx', '.tsx', '.ts'],
     alias: {//设置路径别名
-      '@': path.join(__dirname, '../src')
+      '@': path.join(__dirname, '../src'),
+      '@page': path.join(__dirname, '../src/page'),
+      '@mock': path.join(__dirname, '../src/mock'),
+      '@component': path.join(__dirname, '../src/component'),
+      '@assets': path.join(__dirname, '../src/assets')
     },
-
-    modules: [path.resolve(__dirname, '../node_modules')], // 查找第三方模块只在本项目的node_modules中查找
+    // modules: [path.join(__dirname, '../node_modules')],
   },
 
   output: {
@@ -170,10 +173,6 @@ module.exports = {
       },
 
     ]
-  },
-
-  resolve: {
-    extensions: ['.js', '.tsx', '.ts'], //是webpack的resolve解析配置下的选项，在引入模块时不带文件后缀时，会来该配置数组里面依次添加后缀查找文件
   },
 
   plugins: [
