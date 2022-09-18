@@ -4,18 +4,8 @@ const webpack = require('webpack')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 const isDev = process.env.NODE_ENV === 'development' // 是否是开发模式
-
 module.exports = {
   entry: path.join(__dirname, '../src/index.tsx'),//入口问文件
-
-
-  resolve: {
-    alias: {//设置路径别名
-      '@': path.join(__dirname, '../src')
-    },
-
-    modules: [path.resolve(__dirname, '../node_modules')], // 查找第三方模块只在本项目的node_modules中查找
-  },
 
   output: {
     filename: 'static/js/[name].[chunkhash:8].js', // 每个输出js的名称
@@ -99,7 +89,7 @@ module.exports = {
         // core-js: 使用低版本js语法模拟高版本的库, 也就是垫片
         // include: [path.resolve(__dirname, '../src')],  //只对项目src文件的ts,tsx进行loader解析
         // exclude:不解该选项配置的模块,优先级更高
-        test: /.(ts|tsx)$/,
+        test: /.(jsx|ts|tsx)$/,
         use: {
           loader:  'babel-loader'
           // 配置信息可写在babel.config.js文件中
@@ -171,10 +161,19 @@ module.exports = {
 
     ]
   },
-
   resolve: {
-    extensions: ['.js', '.tsx', '.ts'], //是webpack的resolve解析配置下的选项，在引入模块时不带文件后缀时，会来该配置数组里面依次添加后缀查找文件
+    extensions: ['.js', '.tsx', '.ts'],//是webpack的resolve解析配置下的选项，在引入模块时不带文件后缀时，会来该配置数组里面依次添加后缀查找文件
+    alias: {//设置路径别名
+      '@': path.resolve(__dirname, '../src'),
+      '@mock': path.resolve(__dirname, '../mock'),
+      '@assets': path.resolve(__dirname, '../src/assets'),
+      '@page': path.resolve(__dirname, '../src/page')
+    },
+
+
+    modules: [path.resolve(__dirname, '../node_modules')], // 查找第三方模块只在本项目的node_modules中查找
   },
+
 
   plugins: [
     new HtmlWebpackPlugin({
