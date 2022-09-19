@@ -6,6 +6,7 @@ import secondPic from '@assets/imgs/p-2.png'
 import BaseTablePage from './page/baseTablePage';
 
 function App() {
+    
     return (
         <>
             <h2>webpack5-react-ts</h2>

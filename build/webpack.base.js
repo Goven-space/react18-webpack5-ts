@@ -4,7 +4,6 @@ const webpack = require('webpack')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 const isDev = process.env.NODE_ENV === 'development' // 是否是开发模式
-
 module.exports = {
   entry: path.join(__dirname, '../src/index.tsx'),//入口问文件
   resolve: {
@@ -102,7 +101,7 @@ module.exports = {
         // core-js: 使用低版本js语法模拟高版本的库, 也就是垫片
         // include: [path.resolve(__dirname, '../src')],  //只对项目src文件的ts,tsx进行loader解析
         // exclude:不解该选项配置的模块,优先级更高
-        test: /.(ts|tsx)$/,
+        test: /.(jsx|ts|tsx)$/,
         use: {
           loader:  'babel-loader'
           // 配置信息可写在babel.config.js文件中

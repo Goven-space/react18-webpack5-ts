@@ -52,7 +52,6 @@ module.exports = merge(baseConfig, {
         threshold: 10240, // 只有大小大于该值的资源会被处理。默认值是 10k
         minRatio: 0.8 // 压缩率,默认值是 0.8
       })
-
     ],
 
     optimization: {
@@ -89,7 +88,6 @@ module.exports = merge(baseConfig, {
                 minSize: 0, // 提取代码体积大于0就提取出来
               }
             }
-          }
-      
+          }     
     },
 })
