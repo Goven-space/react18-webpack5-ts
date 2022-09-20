@@ -9,7 +9,7 @@
        对于 --target ES5: DOM,ES5,ScriptHost
        对于 --target ES6: DOM,ES6,DOM.Iterable,ScriptHost
        TS 绝不会在您的代码中注入polyfill,所以需要你自己制定编译lib */
-    "allowJs": false,  // 是否检测JS的语法
+    "allowJs": true,  // 是否检测JS的语法
     "skipLibCheck": false,
     "esModuleInterop": false,
     "allowSyntheticDefaultImports": true,

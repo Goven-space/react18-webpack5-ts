@@ -75,7 +75,7 @@ module.exports = {
 
       {
         test: /.css$/, //匹配所有的 css 文件
-        include: [path.resolve(__dirname, '../src')],
+        // include: [path.resolve(__dirname, '../src')],
         use: [
           isDev ? 'style-loader' : MiniCssExtractPlugin.loader, // 开发环境使用style-looader,打包模式抽离css
           'css-loader',
@@ -84,7 +84,7 @@ module.exports = {
       },
       {
         test: /.less$/, //匹配所有的 less 文件
-        include: [path.resolve(__dirname, '../src')],
+        // include: [path.resolve(__dirname, '../src')],
         use: [
           isDev ? 'style-loader' : MiniCssExtractPlugin.loader, // 开发环境使用style-looader,打包模式抽离css
           'css-loader',
@@ -185,5 +185,7 @@ module.exports = {
       'process.env.BASE_ENV': JSON.stringify(process.env.BASE_ENV)
     })
   ]
+
+   
 
 }
